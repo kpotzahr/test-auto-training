@@ -1,15 +1,14 @@
 package com.devonfw.mts.cucumber.api;
 
+import com.devonfw.mts.cucumber.data.CreateBookingResponse;
 import com.devonfw.mts.cucumber.data.CukesBooking;
 import com.devonfw.mts.cucumber.data.CukesBookingData;
+import com.devonfw.mts.cucumber.data.CukesBookingResponse;
 import com.devonfw.mts.cucumber.data.CukesSearchCriteria;
 import com.devonfw.mts.shared.TestConfiguration;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Component
 public class BookingManagementService {
@@ -35,15 +34,21 @@ public class BookingManagementService {
         createBooking(booking);
     }
 
-    public void createBooking(CukesBookingData bookingData) {
+    public CreateBookingResponse createBooking(CukesBookingData bookingData) {
         CukesBooking booking = new CukesBooking();
         booking.setBooking(bookingData);
-        createBooking(booking);
+        return createBooking(booking);
     }
 
-    private void createBooking(CukesBooking booking) {
+    private CreateBookingResponse createBooking(CukesBooking booking) {
         Response response = requestBuilder.request()
-                .body(booking).post(BOOKING_CREATE_PATH);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK.value());
+                .body(booking).post(BOOKING_BASE_PATH + "/booking/");
+        int statusCode = response.then().assertThat().extract().statusCode();
+        CreateBookingResponse createBookingResponse = new CreateBookingResponse();
+        createBookingResponse.setHttpStatus(statusCode);
+        if (statusCode == 200) {
+            createBookingResponse.setData(response.as(CukesBookingResponse.class));
+        }
+        return createBookingResponse;
     }
 }

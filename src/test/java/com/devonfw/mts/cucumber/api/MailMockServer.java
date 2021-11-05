@@ -50,10 +50,21 @@ public class MailMockServer {
     }
 
     public void mockEmailSuccess() {
+        mockEmailHttpResponseStatus(200);
+    }
+
+    public void mockEmailFailure() {
+        mockEmailHttpResponseStatus(400);
+    }
+
+    private void mockEmailHttpResponseStatus(int statusCode) {
         WireMock.stubFor(post(urlEqualTo("/mail"))
                 .willReturn(aResponse().withHeader("Content-Type", "application/json")
-                        .withStatus(200)));
+                        .withStatus(statusCode))
+        );
+
     }
+
 
     public List<MailInfo> getEmails(String email) throws IOException {
         List<LoggedRequest> requests = wireMockServer.findAll(RequestPatternBuilder.allRequests());
