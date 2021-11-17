@@ -29,6 +29,7 @@ public class WiremockSetup implements BeforeAllCallback, AfterAllCallback, Befor
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
+        WireMock.resetAllRequests();
         WireMock.stubFor(post(urlEqualTo("/mail"))
                 .willReturn(aResponse().withHeader("Content-Type", "application/json")
                         .withStatus(200)));
