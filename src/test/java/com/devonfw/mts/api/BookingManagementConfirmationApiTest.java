@@ -31,7 +31,6 @@ public class BookingManagementConfirmationApiTest {
     @BeforeEach
     public void setup(RequestSpecification given) {
         this.given = given;
-        WireMock.resetAllRequests();
     }
 
     @Test
