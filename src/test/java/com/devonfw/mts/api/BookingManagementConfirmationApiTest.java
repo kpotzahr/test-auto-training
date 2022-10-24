@@ -15,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.containing;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -48,12 +51,17 @@ public class BookingManagementConfirmationApiTest {
 
     @Test
     public void bookingNotSuccessfulForNotWorkingEmail() {
+        final String errorEmail = "myveryspecialemailforerror@error.de";
+
         WireMock.stubFor(post(urlEqualTo("/mail"))
+                .withRequestBody(matchingJsonPath("recipient", equalTo(errorEmail)))
+                .withRequestBody(matchingJsonPath("subject", equalTo("Booking confirmation")))
+                .withRequestBody(matchingJsonPath("text", containing(errorEmail)))
                 .willReturn(aResponse().withStatus(400)));
 
-        String email = "myveryspecialemail@error.de";
+
         BookingWrapper booking = BookingWrapper.defaultValidBooking();
-        booking.getBooking().setEmail(email);
+        booking.getBooking().setEmail(errorEmail);
 
         given.body(booking)
                 .when()
