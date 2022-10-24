@@ -37,6 +37,6 @@ public class TestConfiguration {
 
 
     public static String getChromedriverPath() {
-        return "lib/chromedriver.exe";
+        return System.getProperty("os.name").toUpperCase().contains("WIN") ? "lib/chromedriver.exe" : "lib/chromedriver";
     }
 }

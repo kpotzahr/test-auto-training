@@ -26,7 +26,7 @@ Feature: Book a table
   Scenario Outline: Different Error situations
     When I enter valid booking data
     And I accept the terms
-    And I change <attribute> to <value>
+    And I change "<attribute>" to "<value>"
     Then Booking a table is not possible
 
     Examples:
@@ -44,5 +44,5 @@ Feature: Book a table
   Scenario: Special Error situation - known bug in application
     When I enter valid booking data
     And I accept the terms
-    And I change persons to 2.3
+    And I change "persons" to "2.3"
     Then Booking a table is not possible
