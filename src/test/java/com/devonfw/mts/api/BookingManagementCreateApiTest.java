@@ -50,7 +50,7 @@ public class BookingManagementCreateApiTest {
                 .body("email", equalTo(bookingWrapper.getBooking().getEmail()))
                 .body("canceled", is(false))
                 .body("assistants", equalTo(bookingWrapper.getBooking().getAssistants()))
-                // TODO check booking date
+                .body("bookingDate", is((float) bookingWrapper.getBooking().getBookingDate().toEpochMilli() / 1000))
                 .body("orderId", nullValue());
 
         String bookingToken = response.extract().path("bookingToken");
