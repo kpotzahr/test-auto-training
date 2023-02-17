@@ -60,6 +60,9 @@ public class BookingManagementConfirmationApiTest {
                 .post(BOOKING_CREATE_PATH)
                 .then().statusCode(500);
 
+        List<LoggedRequest> requests = WireMock.findAll(postRequestedFor(urlEqualTo("/mail")));
+        assertThat(requests).hasSize(1);
+
         given.body(new SearchCriteria().withEmail(booking.getBooking().getEmail())).
                 when().post(BOOKING_SEARCH_PATH).
                 then().statusCode(204);
