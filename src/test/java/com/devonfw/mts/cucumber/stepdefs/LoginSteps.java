@@ -20,7 +20,7 @@ public class LoginSteps {
         return new CukesUser(username, username);
     }
 
-    @Given("^The My Thai start page has been opened$")
+    @Given("The My Thai start page has been opened")
     public void startPageIsOpen() {
         this.homePage.open();
     }
