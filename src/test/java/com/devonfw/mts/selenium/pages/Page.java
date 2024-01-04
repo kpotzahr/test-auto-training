@@ -1,5 +1,7 @@
 package com.devonfw.mts.selenium.pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,13 +10,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /** Example solution for exercise 3 - Book Table Page and Common Page class */
 public class Page {
 	/** Global Contants */
-	public static final String HOME = "http://localhost:8081/restaurant";
+	public static final String HOME = "http://localhost:8081/";
 	public static final String MENU = "MENU";
 	public static final String BOOKTABLE = "BOOKTABLE";
 	
 	/** The WebDrivers */
 	static WebDriver sDriver = new ChromeDriver();	
-	static WebDriverWait sDriverWait = new WebDriverWait(sDriver, 5);
+	static WebDriverWait sDriverWait = new WebDriverWait(sDriver, Duration.ofSeconds(5));
 	
 	/** Shared / reused elements */
 	private static final By sErrorPanel = By.cssSelector("simple-snack-bar");

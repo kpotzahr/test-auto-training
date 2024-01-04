@@ -61,8 +61,9 @@ public class MenuPage extends Page {
 		sDriverWait.until(x -> x.findElement(sPriceSlider).isDisplayed());
 	}
 	
-	public static void navigateTo(String url) {
-		sDriver.get(url);
+	public static void navigateTo() {
+		sDriver.get(HOME);
+		sDriver.get(MenuPage.MENU);
 		sDriverWait.until(ExpectedConditions.invisibilityOf(sDriver.findElement(sPriceSlider)));
 	}
 	

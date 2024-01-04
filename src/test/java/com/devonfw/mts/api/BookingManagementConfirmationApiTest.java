@@ -48,8 +48,6 @@ class BookingManagementConfirmationApiTest {
 
     @Test
     void bookingNotSuccessfulForNotWorkingEmail() {
-        WireMock.stubFor(WireMock.post(urlEqualTo("/mail"))
-    public void bookingNotSuccessfulForNotWorkingEmail() {
         final String errorEmail = "myveryspecialemailforerror@error.de";
 
         WireMock.stubFor(post(urlEqualTo("/mail"))

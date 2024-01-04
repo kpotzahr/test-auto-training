@@ -81,6 +81,11 @@ public final class BookTablePage extends Page {
 		getBookTableConfirm().click();
 	}
 
+	public static void navigateTo() {
+		sDriver.get(HOME);
+		sDriver.get(BOOK_TABLE);
+	}
+
 	public static void bookTable(String name, String eMail, String noOfGuests, boolean acceptTerms) {
 		clickBookingDate();
 		pause(1000);
