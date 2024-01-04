@@ -1,7 +1,7 @@
 package com.devonfw.mts.api;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import com.devonfw.mts.api.config.LoggedInRequestSetup;
 import com.devonfw.mts.api.config.WiremockSetup;
 import com.devonfw.mts.api.data.BookingWrapper;
+import com.devonfw.mts.api.data.SearchCriteria;
 import com.devonfw.mts.shared.TestConfiguration;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
@@ -47,7 +48,7 @@ class BookingManagementConfirmationApiTest {
 
     @Test
     void bookingNotSuccessfulForNotWorkingEmail() {
-        WireMock.stubFor(post(urlEqualTo("/mail"))
+        WireMock.stubFor(WireMock.post(urlEqualTo("/mail"))
                 .willReturn(aResponse().withStatus(400)));
 
         String email = "myveryspecialemail@error.de";

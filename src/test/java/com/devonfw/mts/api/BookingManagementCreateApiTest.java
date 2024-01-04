@@ -1,5 +1,17 @@
 package com.devonfw.mts.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.hasSize;
+
+import java.time.Instant;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import com.devonfw.mts.api.config.LoggedInRequestSetup;
 import com.devonfw.mts.api.data.BookingRequest;
 import com.devonfw.mts.api.data.BookingResponse;
@@ -8,21 +20,6 @@ import com.devonfw.mts.api.data.SearchCriteria;
 import com.devonfw.mts.shared.TestConfiguration;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import com.devonfw.mts.api.config.LoggedInRequestSetup;
-import com.devonfw.mts.shared.TestConfiguration;
-import io.restassured.specification.RequestSpecification;
-
-import java.time.Instant;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.Matchers.hasSize;
 
 @ExtendWith(LoggedInRequestSetup.class)
 class BookingManagementCreateApiTest {
@@ -66,7 +63,7 @@ class BookingManagementCreateApiTest {
     }
 
     @Test
-    public void createSuccessfulBookingAndCheckReturnedDataWithObjectMapper() {
+    void createSuccessfulBookingAndCheckReturnedDataWithObjectMapper() {
         BookingWrapper bookingWrapper = new BookingWrapper();
         bookingWrapper.setBooking(new BookingRequest());
         bookingWrapper.getBooking().setName("My Thai Guest & Friends");
