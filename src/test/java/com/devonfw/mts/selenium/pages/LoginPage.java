@@ -1,5 +1,7 @@
 package com.devonfw.mts.selenium.pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +12,7 @@ public class LoginPage {
 	
 	/** The WebDrivers */
 	private static WebDriver sDriver = new ChromeDriver();	
-	private static WebDriverWait sDriverWait = new WebDriverWait(sDriver, 5);
+	private static WebDriverWait sDriverWait = new WebDriverWait(sDriver, Duration.ofSeconds(5));
 
 	/** Private page related static constants */
 	private static final By sLoginButton = By.name("login");

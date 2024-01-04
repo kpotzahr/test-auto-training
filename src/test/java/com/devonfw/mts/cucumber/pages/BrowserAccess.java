@@ -1,18 +1,15 @@
 package com.devonfw.mts.cucumber.pages;
 
-import com.devonfw.mts.shared.TestConfiguration;
+import java.time.Duration;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 @Component
 public class BrowserAccess {
-    private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
-
     private WebDriver webDriver;
 
     public WebDriver webDriver() {
@@ -27,11 +24,10 @@ public class BrowserAccess {
         if (null != webDriver) {
             return;
         }
-        System.setProperty(CHROME_DRIVER_PROPERTY, TestConfiguration.getChromedriverPath());
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     public boolean isBrowserOpen() {

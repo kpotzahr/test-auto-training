@@ -1,5 +1,7 @@
 package com.devonfw.mts.cucumber.pages.widgets;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,14 +19,14 @@ public class Widget {
     }
 
     public void click() {
-        (new WebDriverWait(searchContext, 10)).
+        (new WebDriverWait(searchContext, Duration.ofSeconds(10))).
                 until(ExpectedConditions.elementToBeClickable(getWebElement()));
         getWebElement().click();
     }
 
     protected void clickViaJavascript(WebElement element) {
         scrollTo(element);
-        (new WebDriverWait(searchContext, 10)).
+        (new WebDriverWait(searchContext, Duration.ofSeconds(10))).
                 until(ExpectedConditions.elementToBeClickable(element));
         JavascriptExecutor executor = (JavascriptExecutor) searchContext;
         executor.executeScript("arguments[0].click();", element);

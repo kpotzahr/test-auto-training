@@ -1,25 +1,26 @@
 package com.devonfw.mts.api;
 
 
-import com.devonfw.mts.api.config.RestassuredConnectionSetup;
-import com.devonfw.mts.api.data.User;
-import com.devonfw.mts.shared.TestConfiguration;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.http.HttpHeaders;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import com.devonfw.mts.api.config.RestassuredConnectionSetup;
+import com.devonfw.mts.api.data.User;
+import com.devonfw.mts.shared.TestConfiguration;
 
 @ExtendWith(RestassuredConnectionSetup.class)
-public class LoginRestAssuredApiTest {
+class LoginRestAssuredApiTest {
     private static final String API_LOGIN_URL = TestConfiguration.getApiPath() + "/login";
 
     @Test
-    public void loginSuccessful() {
+    void loginSuccessful() {
         given().body(User.validUser())
                 .when()
                 .post(API_LOGIN_URL)
@@ -33,7 +34,7 @@ public class LoginRestAssuredApiTest {
             "waiter, unknown",
             "unknown,waiter",
             ","})
-    public void loginUnsuccessful(String username, String password) {
+    void loginUnsuccessful(String username, String password) {
         given().body(new User(username, password))
                 .when()
                 .post(API_LOGIN_URL)

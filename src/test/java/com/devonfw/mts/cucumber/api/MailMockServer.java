@@ -1,5 +1,21 @@
 package com.devonfw.mts.cucumber.api;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import com.devonfw.mts.cucumber.data.MailInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -7,21 +23,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.FatalStartupException;
 import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import jakarta.annotation.PreDestroy;
 
 @Component
 public class MailMockServer {
@@ -33,9 +35,13 @@ public class MailMockServer {
 
     public MailMockServer(@Value("${mailservice.url:http://localhost:8088}") String mailserviceUrl) {
         this.mailserviceUrl = mailserviceUrl;
+        try {
+            initialize();
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException("Wiremock initialization failed", e);
+        }
     }
 
-    @PostConstruct
     public void initialize() throws MalformedURLException {
         URL url = new URL(mailserviceUrl);
         wireMockServer = new WireMockServer(wireMockConfig().port(url.getPort()));

@@ -1,19 +1,7 @@
 package com.devonfw.mts.cucumber.stepdefs;
 
-import com.devonfw.mts.cucumber.api.BookingManagementService;
-import com.devonfw.mts.cucumber.api.MailMockServer;
-import com.devonfw.mts.cucumber.data.CukesBookingData;
-import com.devonfw.mts.cucumber.data.MailInfo;
-import com.devonfw.mts.cucumber.data.ScenarioVariables;
-import com.devonfw.mts.cucumber.pages.BookingPage;
-import com.devonfw.mts.cucumber.pages.HomePage;
-import com.devonfw.mts.shared.DateTimeUtils;
-import io.cucumber.java.DataTableType;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,8 +11,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.devonfw.mts.cucumber.api.BookingManagementService;
+import com.devonfw.mts.cucumber.api.MailMockServer;
+import com.devonfw.mts.cucumber.data.CukesBookingData;
+import com.devonfw.mts.cucumber.data.MailInfo;
+import com.devonfw.mts.cucumber.data.ScenarioVariables;
+import com.devonfw.mts.cucumber.pages.BookingPage;
+import com.devonfw.mts.cucumber.pages.HomePage;
+import io.cucumber.java.DataTableType;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class BookingSteps {
     @Autowired
