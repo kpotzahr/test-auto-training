@@ -49,16 +49,26 @@ class BookingManagementConfirmationApiTest {
     @Test
     void bookingNotSuccessfulForNotWorkingEmail() {
         WireMock.stubFor(WireMock.post(urlEqualTo("/mail"))
+    public void bookingNotSuccessfulForNotWorkingEmail() {
+        final String errorEmail = "myveryspecialemailforerror@error.de";
+
+        WireMock.stubFor(post(urlEqualTo("/mail"))
+                .withRequestBody(matchingJsonPath("recipient", equalTo(errorEmail)))
+                .withRequestBody(matchingJsonPath("subject", equalTo("Booking confirmation")))
+                .withRequestBody(matchingJsonPath("text", containing(errorEmail)))
                 .willReturn(aResponse().withStatus(400)));
 
-        String email = "myveryspecialemail@error.de";
+
         BookingWrapper booking = BookingWrapper.defaultValidBooking();
-        booking.getBooking().setEmail(email);
+        booking.getBooking().setEmail(errorEmail);
 
         given.body(booking)
                 .when()
                 .post(BOOKING_CREATE_PATH)
                 .then().statusCode(500);
+
+        List<LoggedRequest> requests = WireMock.findAll(postRequestedFor(urlEqualTo("/mail")));
+        assertThat(requests).hasSize(1);
 
         given.body(new SearchCriteria().withEmail(booking.getBooking().getEmail())).
                 when().post(BOOKING_SEARCH_PATH).

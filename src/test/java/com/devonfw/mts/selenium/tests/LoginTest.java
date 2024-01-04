@@ -16,11 +16,13 @@ import com.devonfw.mts.selenium.pages.LoginPage;
 public final class LoginTest {
 	
 	/** Public constants */
-	public static final String LANDING_PAGE = "http://localhost:8081/";
+	public static final String LANDING_PAGE = "http://localhost:8081/restaurant";
 
 	/** Private constants */
 	private static final String SUCCESSFUL_LOGIN = "Login successful\nOK";
 	
+	private static final String INVALID_LOGIN = "Http failure response for http://localhost:8081/api/login: 401 OK\nOK";
+
 	private static final String USER = "waiter";
 	
 	private static final String PASSWORD = "waiter";
@@ -32,7 +34,7 @@ public final class LoginTest {
 	@Test
 	public void testSuccessfulLoginWithUserWaiterBadExample() {
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://localhost:8081/");
+		driver.get("http://localhost:8081/restaurant");
 		
 		driver.findElement(By.name("login")).click();
 		driver.findElement(By.name("username")).sendKeys("waiter");
@@ -52,13 +54,22 @@ public final class LoginTest {
 	public void testSuccessfulLoginWithUserWaiterGoodExample() {
 		LoginPage.navigateTo(LANDING_PAGE);
 		LoginPage.login(USER, PASSWORD);
-		assertEquals(SUCCESSFUL_LOGIN, LoginPage.getLoginMessage());
+		assertEquals(SUCCESSFUL_LOGIN, LoginPage.getPopupMessage());
 	}
 	
+	/** Example solution for exercise 1 - cancel login dialog */
 	@Test
 	public void testUserCancelsLogin() {
 		LoginPage.navigateTo(LANDING_PAGE);
+		LoginPage.cancelLogin("Test", "password123");
+		assertEquals(INVALID_LOGIN, LoginPage.getPopupMessage());
+	}
 
-		// to be implemented
+	/** Example solution for exercise 2 - invalid password */
+	@Test
+	public void testLoginInvalid() {
+		LoginPage.navigateTo(LANDING_PAGE);
+		LoginPage.login("test", "passwrod");
+		assertEquals(INVALID_LOGIN, LoginPage.getPopupMessage());
 	}
 }
