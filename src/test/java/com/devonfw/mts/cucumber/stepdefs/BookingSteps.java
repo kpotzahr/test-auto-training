@@ -1,5 +1,19 @@
 package com.devonfw.mts.cucumber.stepdefs;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.devonfw.mts.cucumber.api.BookingManagementService;
 import com.devonfw.mts.cucumber.api.MailMockServer;
 import com.devonfw.mts.cucumber.data.CreateBookingResponse;
@@ -13,19 +27,6 @@ import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class BookingSteps {
     @Autowired
@@ -77,32 +78,32 @@ public class BookingSteps {
     }
 
 
-    @Given("^the booking section has been opened$")
+    @Given("the booking section has been opened")
     public void bookingHasBeenOpened() {
         this.homePage.openBookingSection();
     }
 
-    @When("^I enter valid booking data$")
+    @When("I enter valid booking data")
     public void enterValidBookingData() {
         enterValidBookingForPersons(2);
     }
 
-    @When("^I do not accept the terms$")
+    @When("I do not accept the terms")
     public void doNotAcceptTerms() {
         bookingPage.acceptTerms(false);
     }
 
-    @When("^I accept the terms$")
+    @When("I accept the terms")
     public void acceptTerms() {
         bookingPage.acceptTerms(true);
     }
 
-    @Then("^Booking a table is not possible$")
+    @Then("Booking a table is not possible")
     public void bookingNotPossible() {
         Assert.assertFalse(bookingPage.isBookingPossible());
     }
 
-    @When("^I enter valid booking information for a table for (\\d+) persons$")
+    @When("I enter valid booking information for a table for {int} persons")
     public void enterValidBookingForPersons(int noOfPersons) {
         String dateTomorrow = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         bookingPage.enterTimeAndDate(dateTomorrow + ", 08:00 PM");
@@ -113,18 +114,18 @@ public class BookingSteps {
         bookingPage.enterGuests(noOfPersons);
     }
 
-    @When("^I confirm the booking$")
+    @When("I confirm the booking")
     public void confirmBooking() {
         bookingPage.bookTableAndConfirm();
     }
 
-    @Then("^The table is successfully booked$")
+    @Then("The table is successfully booked")
     public void tableSuccessfullyBooked() {
         assertTrue(bookingPage.isSuccessMessageShown());
     }
 
 
-    @When("^I change (email|name|persons) to (.*)$")
+    @When("I change {string} to {string}")
     public void changeEmail(String attribute, String value) {
         switch (attribute) {
             case "email":

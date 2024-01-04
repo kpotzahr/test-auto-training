@@ -1,0 +1,298 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v2.11",
+    "title": "My Thai Star API"
+  },
+  "host": "localhost:8081",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/mythaistar/services/rest/Bookingmanagement/v1/booking/cancel/{bookingToken}": {
+      "get": {
+        "tags": [
+          "Mail"
+        ],
+        "summary": "Method to cancel the invitation. Once is cancelled the system will send a cancelation email to all guests.\r\nAn invitation only can be canceled if the cancelation request is not send an hour before the booking",
+        "operationId": "Mail_Booking/CancelInvitation",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "bookingToken",
+            "in": "path",
+            "description": "Token generated in the booking process where guests are invited. Mandatory",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Ok, no content. Invitation canceled",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request. Incorrect Invitation token given or parse error.The invitation cannot be cancelled because the request is an hour before the event."
+          },
+          "401": {
+            "description": "Unathorized. Autentication fail"
+          },
+          "403": {
+            "description": "Forbidden. Authorization error."
+          },
+          "500": {
+            "description": "Internal Server Error. The search process ended with error."
+          }
+        }
+      }
+    },
+    "/mythaistar/services/rest/bookingmanagement/v1/booking": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Method to make a reservation with potentiel guests. The method returns the reservation token with the format: {(CB_|GB_)}{now.Year}{now.Month:00}{now.Day:00}{_}{MD5({Host/Guest-email}{now.Year}{now.Month:00}{now.Day:00}{now.Hour:00}{now.Minute:00}{now.Second:00})}",
+        "operationId": "Booking_Booking",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "bookingView",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookingPostView"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/BookingEntity"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Parser data error."
+          },
+          "401": {
+            "description": "Unathorized. Autentication fail"
+          },
+          "403": {
+            "description": "Forbidden. Authorization error."
+          },
+          "500": {
+            "description": "Internal Server Error. The search process ended with error."
+          }
+        }
+      }
+    },
+    "/mythaistar/services/rest/bookingmanagement/v1/booking/search": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "Method to get reservations",
+        "operationId": "Booking_Search",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "bookingEntity",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookingEntity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BookingEntity"
+              }
+            }
+          },
+          "204": {
+            "description": "No result found."
+          },
+          "400": {
+            "description": "Bad request. Parser data error."
+          },
+          "401": {
+            "description": "Unathorized. Autentication fail"
+          },
+          "403": {
+            "description": "Forbidden. Authorization error."
+          },
+          "500": {
+            "description": "Internal Server Error. The search process ended with error."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BookingPostView": {
+      "type": "object",
+      "properties": {
+        "booking": {
+          "$ref": "#/definitions/BookingEntity"
+        },
+        "invitedGuests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvitedGuestEntity"
+          }
+        }
+      }
+    },
+    "BookingView": {
+      "type": "object",
+      "properties": {
+        "bookingDate": {
+          "type": "string"
+        },
+        "bookintToken": {
+          "type": "string"
+        },
+        "bookingType": {
+          "$ref": "#/definitions/BookingType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "assistants": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "invitedGuests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BookingType": {
+      "type": "string",
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "BookingEntity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "bookingToken": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "bookingDate": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "canceled": {
+          "type": "boolean"
+        },
+        "bookingType": {
+          "$ref": "#/definitions/BookingType"
+        },
+        "tableId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "orderId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "assistants": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "InvitedGuestEntity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bookingId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "guestToken": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "modificationDate": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

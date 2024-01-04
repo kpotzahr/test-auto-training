@@ -8,14 +8,16 @@ public class CukesUser {
                 TestDataPoolContent.instance().getDefaultPassword());
     }
 
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
 
 
     public CukesUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    public CukesUser() {}
 
     public String getUsername() {
         return username;

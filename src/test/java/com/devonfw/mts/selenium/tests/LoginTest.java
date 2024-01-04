@@ -2,9 +2,8 @@ package com.devonfw.mts.selenium.tests;
 
 import static org.junit.Assert.assertEquals;
 
-import com.devonfw.mts.shared.TestConfiguration;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeAll;
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,12 +25,7 @@ public final class LoginTest {
 	
 	private static final String PASSWORD = "waiter";
 
-	@BeforeAll
-	public static void setChromeDriverPath() {
-		System.setProperty("webdriver.chrome.driver", TestConfiguration.getChromedriverPath());
-	}
-
-	/** 
+	/**
 	 * This is a bad example of how to write a Selenium test. Please do not copy.
 	 * Simply think of what could have been done better and compare to the good example.
 	 */
@@ -45,7 +39,7 @@ public final class LoginTest {
 		driver.findElement(By.name("password")).sendKeys("waiter");
 		driver.findElement(By.name("submitLogin")).click();
 		
-		WebElement element = new WebDriverWait(driver, 3)
+		WebElement element = new WebDriverWait(driver, Duration.ofSeconds(3))
 				.until(f -> f.findElement(By.cssSelector("simple-snack-bar")));
 		
 		assertEquals("Login successful\nOK", element.getText());

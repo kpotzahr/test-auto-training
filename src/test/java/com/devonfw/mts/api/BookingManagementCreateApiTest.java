@@ -12,6 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import com.devonfw.mts.api.config.LoggedInRequestSetup;
+import com.devonfw.mts.shared.TestConfiguration;
+import io.restassured.specification.RequestSpecification;
+
 import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +25,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.hasSize;
 
 @ExtendWith(LoggedInRequestSetup.class)
-public class BookingManagementCreateApiTest {
+class BookingManagementCreateApiTest {
     private static final String BOOKING_BASE_PATH = TestConfiguration.getApiPath() + "/services/rest/bookingmanagement/v1";
     private static final String BOOKING_CREATE_PATH = BOOKING_BASE_PATH + "/booking/";
     private static final String BOOKING_SEARCH_PATH = BOOKING_BASE_PATH + "/booking/search";
@@ -34,7 +38,7 @@ public class BookingManagementCreateApiTest {
     }
 
     @Test
-    public void createSuccessfulBookingAndCheckReturnedDataDirect() {
+    void createSuccessfulBookingAndCheckReturnedDataDirect() {
         BookingWrapper bookingWrapper = new BookingWrapper();
         bookingWrapper.setBooking(new BookingRequest());
         bookingWrapper.getBooking().setName("My Thai Guest & Friends");

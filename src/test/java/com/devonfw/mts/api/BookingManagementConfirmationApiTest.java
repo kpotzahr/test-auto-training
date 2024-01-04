@@ -1,28 +1,26 @@
 package com.devonfw.mts.api;
 
-import com.devonfw.mts.api.config.LoggedInRequestSetup;
-import com.devonfw.mts.api.config.WiremockSetup;
-import com.devonfw.mts.api.data.BookingWrapper;
-import com.devonfw.mts.api.data.SearchCriteria;
-import com.devonfw.mts.shared.TestConfiguration;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.verification.LoggedRequest;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.util.List;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import com.devonfw.mts.api.config.LoggedInRequestSetup;
+import com.devonfw.mts.api.config.WiremockSetup;
+import com.devonfw.mts.api.data.BookingWrapper;
+import com.devonfw.mts.shared.TestConfiguration;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.verification.LoggedRequest;
+import io.restassured.specification.RequestSpecification;
+
 @ExtendWith(LoggedInRequestSetup.class)
 @ExtendWith(WiremockSetup.class)
-public class BookingManagementConfirmationApiTest {
+class BookingManagementConfirmationApiTest {
     private static final String BOOKING_BASE_PATH = TestConfiguration.getApiPath() + "/services/rest/bookingmanagement/v1";
     private static final String BOOKING_CREATE_PATH = BOOKING_BASE_PATH + "/booking/";
     private static final String BOOKING_SEARCH_PATH = BOOKING_BASE_PATH + "/booking/search";
@@ -36,7 +34,7 @@ public class BookingManagementConfirmationApiTest {
     }
 
     @Test
-    public void createSuccessfulBookingAndCheckConfirmationEmail() {
+    void createSuccessfulBookingAndCheckConfirmationEmail() {
         BookingWrapper booking = BookingWrapper.defaultValidBooking();
         given.body(booking)
                 .when()
@@ -48,7 +46,7 @@ public class BookingManagementConfirmationApiTest {
     }
 
     @Test
-    public void bookingNotSuccessfulForNotWorkingEmail() {
+    void bookingNotSuccessfulForNotWorkingEmail() {
         WireMock.stubFor(post(urlEqualTo("/mail"))
                 .willReturn(aResponse().withStatus(400)));
 
