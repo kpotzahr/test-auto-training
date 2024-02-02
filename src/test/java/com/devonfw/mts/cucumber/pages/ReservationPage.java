@@ -24,7 +24,7 @@ public class ReservationPage {
     private static final By COLUMN_BOOKING_DATE_SEARCH = By.className("cdk-column-bookingDate");
     private static final By COLUMN_EMAIL_SEARCH = By.className("cdk-column-email");
     private static final By COLUMN_BOOKING_TOKEN_SEARCH = By.className("cdk-column-bookingToken");
-    private static final String DATE_FORMAT_UI = "MMM d, yyyy h:mm a";
+    private static final String DATE_FORMAT_UI = "MM/dd/yyyy, hh:mm a";
 
     @Autowired
     private WidgetHelper helper;
