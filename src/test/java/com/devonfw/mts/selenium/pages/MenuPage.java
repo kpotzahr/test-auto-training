@@ -49,8 +49,8 @@ public class MenuPage extends Page {
 		Actions action = new Actions(sDriver);
 
 		// INFO: When using the W3C Action commands, offsets are from the center of element
-		int test = (int) (price*sliderW / maxValue) - sliderW / 2;	
-		action.moveToElement(slider, test, slider.getSize().height / 2).click().build().perform();
+		int offset = (int) (price*sliderW / maxValue) - sliderW / 2;	
+		action.moveToElement(slider, offset, 0).click().build().perform();
 		
 		String value = sDriverWait.until(x -> x.findElement(sSliderXPath)).getAttribute("aria-valuenow");
 		assertEquals(String.valueOf(price), value);
