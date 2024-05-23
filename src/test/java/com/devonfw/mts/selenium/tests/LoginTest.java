@@ -55,6 +55,9 @@ public final class LoginTest {
 		assertEquals(SUCCESSFUL_LOGIN, LoginPage.getLoginMessage());
 	}
 	
+	/**
+	 * Provide some documentation.
+	 */
 	@Test
 	public void testUserCancelsLogin() {
 		LoginPage.navigateTo(LANDING_PAGE);
