@@ -22,9 +22,6 @@ public class ConfirmationPage {
     @Autowired
     private WidgetHelper helper;
 
-    @Autowired
-    private BrowserAccess browserAccess;
-
     public String getEmail() {
         return helper.widget(EMAIL_SELECTOR).getText();
     }

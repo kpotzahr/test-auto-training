@@ -20,6 +20,8 @@ final class LoginTest {
 
 	/** Private constants */
 	private static final String SUCCESSFUL_LOGIN = "Login successful\nOK";
+
+	private static final String INVALID_LOGIN = "Http failure response for http://localhost:8081/login: 401 OK\nOK";
 	
 	private static final String USER = "waiter";
 	

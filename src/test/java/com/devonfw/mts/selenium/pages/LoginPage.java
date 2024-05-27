@@ -1,7 +1,5 @@
 package com.devonfw.mts.selenium.pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -13,7 +11,8 @@ public final class LoginPage extends Page {
 	private static final By sPasswordField = By.name("password");
 	private static final By sSubmitButton = By.name("submitLogin");
 	private static final By sCancelButton = By.name("cancelLogin");
-	
+	private static final By errorPanel = By.cssSelector("simple-snack-bar");
+
 	/**
 	 * Clicks the login button, enters username, password and clicks login. 
 	 * 
@@ -27,6 +26,10 @@ public final class LoginPage extends Page {
 		fillPassword(password);
 		
 		submitLoginButton().click();
+	}
+
+	public static String getLoginMessage() {
+		return sDriverWait.until(f -> f.findElement(errorPanel)).getText();
 	}
 	
 	public static void cancelLogin(String user, String password) {
