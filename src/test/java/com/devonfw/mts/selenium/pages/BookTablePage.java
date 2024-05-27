@@ -13,7 +13,7 @@ public final class BookTablePage {
 	public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
 	
 	private static By submitBookingDateButton = By.xpath("/html/body/div[3]/div[2]/div/owl-dialog-container/owl-date-time-container/div[2]/div/button[2]");
-	private static By dateInput = By.cssSelector("[data-testid='date-input']");
+	private static By dateInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[1]/mat-form-field/div/div[1]/div/input");
 	// TODO : implement further locators
 	
 	private static WebElement getDateField() {
