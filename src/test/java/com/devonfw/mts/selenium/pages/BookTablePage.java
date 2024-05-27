@@ -1,6 +1,5 @@
 package com.devonfw.mts.selenium.pages;
 
-import com.devonfw.mts.shared.CustomBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +13,7 @@ public final class BookTablePage {
 	public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
 	
 	private static By submitBookingDateButton = By.xpath("/html/body/div[3]/div[2]/div/owl-dialog-container/owl-date-time-container/div[2]/div/button[2]");
-	private static By dateInput = CustomBy.testId("date-input");
+	private static By dateInput = By.cssSelector("[data-testid='date-input']");
 	// TODO : implement further locators
 	
 	private static WebElement getDateField() {
