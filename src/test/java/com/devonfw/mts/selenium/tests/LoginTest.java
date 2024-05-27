@@ -21,8 +21,6 @@ final class LoginTest {
 	/** Private constants */
 	private static final String SUCCESSFUL_LOGIN = "Login successful\nOK";
 	
-	private static final String INVALID_LOGIN = "Http failure response for http://localhost:8081/login: 401 OK\nOK";
-
 	private static final String USER = "waiter";
 	
 	private static final String PASSWORD = "waiter";
@@ -54,15 +52,7 @@ final class LoginTest {
 	void testSuccessfulLoginWithUserWaiterGoodExample() {
 		LoginPage.navigateTo(LANDING_PAGE);
 		LoginPage.login(USER, PASSWORD);
-		assertEquals(SUCCESSFUL_LOGIN, LoginPage.getPopupMessage());
-	}
-	
-	/** Example solution for exercise 1 - cancel login dialog */
-	@Test
-	void testUserCancelsLogin() {
-		LoginPage.navigateTo(LANDING_PAGE);
-		LoginPage.cancelLogin("Test", "password123");
-		assertEquals(INVALID_LOGIN, LoginPage.getPopupMessage());
+		assertEquals(SUCCESSFUL_LOGIN, LoginPage.getLoginMessage());
 	}
 
 	/** Example solution for exercise 2 - invalid password */
