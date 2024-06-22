@@ -1,23 +1,27 @@
 package com.devonfw.mts.cucumber.pages;
 
-import org.openqa.selenium.By;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.openqa.selenium.By;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.devonfw.mts.shared.CustomBy;
+import com.devonfw.mts.shared.DateTimeUtils;
+
 @Component
 public class BookingPage {
-    private static final By DATE_SELECTOR = By.cssSelector("input[formcontrolname='bookingDate']");
-    private static final By NAME_SELECTOR = By.cssSelector("input[formcontrolname='name']");
-    private static final By EMAIL_SELECTOR = By.cssSelector("input[formcontrolname='email']");
-    private static final By GUESTS_SELECTOR = By.cssSelector("input[formcontrolname='assistants']");
-    private static final By ACCEPT_SELECTOR = By.cssSelector("mat-checkbox[data-name='bookTableTerms']");
-    private static final By BOOK_TABLE_SELECTOR = By.name("bookTableSubmit");
-    private static final By CONFIRM_SELECTOR = By.name("bookTableConfirm");
+    private static final By DATE_SELECTOR = CustomBy.testId("booking-date-input");
+    private static final By NAME_SELECTOR = CustomBy.testId("booking-name-input");
+    private static final By EMAIL_SELECTOR = CustomBy.testId("booking-email-input");
+    private static final By GUESTS_SELECTOR = CustomBy.testId("booking-guests-input");
+    private static final By ACCEPT_SELECTOR = CustomBy.testId("booking-accept-terms-checkbox");
+    private static final By BOOK_TABLE_SELECTOR = CustomBy.testId("booking-submit-button");
+    private static final By CONFIRM_SELECTOR = CustomBy.testId("booking-send-button");
 
     private static final String TABLE_SUCCESFULLY_BOOKED = "Table succesfully booked";
 
@@ -39,7 +43,7 @@ public class BookingPage {
 
     public void enterTimeAndDate(Instant dateTime) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(dateTime, ZoneId.systemDefault());
-        enterTimeAndDate(DateTimeFormatter.ofPattern("MM/dd/yyyy, hh:mm a")
+        enterTimeAndDate(DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
                 .format(localDateTime));
     }
 

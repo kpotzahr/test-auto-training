@@ -1,18 +1,20 @@
 package com.devonfw.mts.cucumber.pages;
 
-import com.devonfw.mts.cucumber.data.CukesBookingData;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.devonfw.mts.cucumber.data.CukesBookingData;
+import com.devonfw.mts.shared.DateTimeUtils;
 
 @Component
 public class ReservationPage {
@@ -24,7 +26,6 @@ public class ReservationPage {
     private static final By COLUMN_BOOKING_DATE_SEARCH = By.className("cdk-column-bookingDate");
     private static final By COLUMN_EMAIL_SEARCH = By.className("cdk-column-email");
     private static final By COLUMN_BOOKING_TOKEN_SEARCH = By.className("cdk-column-bookingToken");
-    private static final String DATE_FORMAT_UI = "MM/dd/yyyy, hh:mm a";
 
     @Autowired
     private WidgetHelper helper;
@@ -66,7 +67,7 @@ public class ReservationPage {
     }
 
     private Instant parseDateTime(String dateFromTable) {
-        DateTimeFormatter readingFormat = DateTimeFormatter.ofPattern(DATE_FORMAT_UI)
+        DateTimeFormatter readingFormat = DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
                 .withLocale(Locale.getDefault())
                 .withZone(ZoneId.systemDefault());
 
