@@ -1,23 +1,20 @@
 package com.devonfw.mts.cucumber.pages;
 
+import java.time.Instant;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
+import com.devonfw.mts.shared.CustomBy;
+import com.devonfw.mts.shared.DateTimeUtils;
 
 @Component
 public class ConfirmationPage {
-    private static final By TOP_LEVEL_SELECTOR = By.className("mat-dialog-content");
-    private static final By DATA_ELEMENT_SELECTOR = By.tagName("span");
-    private static final By NAME_SELECTOR = By.className("nameValue");
-    private static final By EMAIL_SELECTOR = By.className("emailValue");
+    private static final By BOOKING_DATE_TIME_SELECTOR = CustomBy.testId("date-value");
+    private static final By NAME_SELECTOR = CustomBy.testId("name-value");
+    private static final By EMAIL_SELECTOR = CustomBy.testId("email-value");
+    private static final By GUESTS_SELECTOR = CustomBy.testId("guests-value");
 
     @Autowired
     private WidgetHelper helper;
@@ -30,27 +27,11 @@ public class ConfirmationPage {
         return helper.widget(NAME_SELECTOR).getText();
     }
 
-    public boolean hasBookingDateTime(Instant expectedBookingDateTime) {
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(expectedBookingDateTime, ZoneId.systemDefault());
-        String expectedBookingDateTimeString = DateTimeFormatter.ofPattern(
-                "MMMM d, yyyy h:mm a", Locale.getDefault()).format(localDateTime);
-        return hasElementWithText(expectedBookingDateTimeString);
+    public int getNumberOfGuests() {
+        return Integer.parseInt(helper.widget(GUESTS_SELECTOR).getText());
     }
 
-    public boolean hasNumberOfGuests(int expectedNumberOfGuests) {
-        return hasElementWithText(String.valueOf(expectedNumberOfGuests));
+    public Instant getBookingDateTime() {
+        return DateTimeUtils.parseUiDateTime(helper.widget(BOOKING_DATE_TIME_SELECTOR).getText());
     }
-
-    private boolean hasElementWithText(String expectedText) {
-        List<WebElement> elements = helper.widget(TOP_LEVEL_SELECTOR).getWebElement().findElements(DATA_ELEMENT_SELECTOR);
-
-        for (WebElement element : elements) {
-            if (expectedText.equals(element.getText())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 }

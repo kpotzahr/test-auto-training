@@ -173,12 +173,12 @@ public class BookingSteps {
         CukesBookingData bookingData = scenarioVariables.getBookingData();
         assertThat(confirmationPage.getName()).isEqualTo(bookingData.getName());
         assertThat(confirmationPage.getEmail()).isEqualTo(bookingData.getEmail());
-        assertThat(confirmationPage.hasNumberOfGuests(bookingData.getAssistants())).isTrue();
-        assertThat(confirmationPage.hasBookingDateTime(bookingData.getBookingDate())).isTrue();
+        assertThat(confirmationPage.getNumberOfGuests()).isEqualTo(bookingData.getAssistants());
+        assertThat(confirmationPage.getBookingDateTime()).isEqualTo(bookingData.getBookingDate());
     }
 
-    @Then("I all the entered details are saved")
-    public void iAllTheEnteredDetailsAreAccepted() {
+    @Then("All the entered details are saved")
+    public void allTheEnteredDetailsAreAccepted() {
         assertThat(bookingResponse.getData()).isEqualToComparingOnlyGivenFields(scenarioVariables.getBookingData(),
                 "name", "email", "bookingDate", "assistants");
     }

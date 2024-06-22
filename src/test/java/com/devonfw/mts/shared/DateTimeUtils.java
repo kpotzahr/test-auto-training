@@ -1,17 +1,18 @@
 package com.devonfw.mts.shared;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+import java.util.Locale;
 
 public class DateTimeUtils {
-    public static String DATE_TIME_FORMAT_UI = "M/dd/yyyy, hh:mm a";
+    public static String DATE_TIME_FORMAT_UI = "M/dd/yyyy, h:mm a";
 
+    public static Instant parseUiDateTime(String dateFromTable) {
+        DateTimeFormatter readingFormat = DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
+                .withLocale(Locale.getDefault())
+                .withZone(ZoneId.systemDefault());
 
-    public static String convertDateTimeFormat(String inputFormat, String outputFormat, String value) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(inputFormat);
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(outputFormat);
-
-        TemporalAccessor date = inputFormatter.parse(value);
-        return outputFormatter.format(date);
+        return readingFormat.parse(dateFromTable, Instant::from);
     }
 }
