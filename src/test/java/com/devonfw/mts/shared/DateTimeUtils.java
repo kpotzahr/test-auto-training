@@ -2,9 +2,9 @@ package com.devonfw.mts.shared;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
-import java.util.Locale;
 
 public class DateTimeUtils {
+    public static String DATE_TIME_FORMAT_UI = "M/dd/yyyy, hh:mm a";
 
 
     public static String convertDateTimeFormat(String inputFormat, String outputFormat, String value) {

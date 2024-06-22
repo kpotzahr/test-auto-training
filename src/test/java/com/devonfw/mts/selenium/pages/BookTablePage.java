@@ -1,14 +1,17 @@
 package com.devonfw.mts.selenium.pages;
 
+import com.devonfw.mts.shared.CustomBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /** Example solution for exercise 3 and 4 - Book Table Page and Common Page class */
 public final class BookTablePage extends Page {
 	public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
 	
 	private static By submitBookingDateButton = By.xpath("/html/body/div[3]/div[2]/div/owl-dialog-container/owl-date-time-container/div[2]/div/button[2]");
-	private static By dateInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[1]/mat-form-field/div/div[1]/div/input");
+    private static By dateInput = CustomBy.testId("booking-date-input");
 	private static By nameInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[2]/mat-form-field/div/div[1]/div/input");
 	private static By guestInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[4]/mat-form-field/div/div[1]/div/input");
 	private static By acceptTerms = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[5]/mat-checkbox/label/div");
@@ -24,7 +27,7 @@ public final class BookTablePage extends Page {
 	private static WebElement getDateField() {
 		return sDriver.findElement(dateInput);
 	}
-	
+
 	private static WebElement getNameInput() {
 		return sDriver.findElement(nameInput);
 	}
@@ -48,7 +51,7 @@ public final class BookTablePage extends Page {
 	private static WebElement getBookTableConfirm() {
 		return sDriverWait.until(driver -> driver.findElement(bookTableConfirm));
 	}
-	
+
 	private static void clickBookingDate() {
 		getDateField().click();
 	}

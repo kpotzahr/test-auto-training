@@ -16,7 +16,7 @@ Feature: Book a table more detailed checks
     When I book a table with the following booking data:
       | name  | email                 | persons | date    | time  |
       | Mr. X | mr.x@some-company.com | 2       | <today> | 23:00 |
-    Then I all the entered details are saved
+    Then All the entered details are saved
 
   @api
   Scenario: Check email confirmation
