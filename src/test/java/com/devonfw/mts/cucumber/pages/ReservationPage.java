@@ -56,8 +56,7 @@ public class ReservationPage {
         List<WebElement> reservationsLines = browserAccess.webDriver().findElements(TABLE_ROWS_SELECTOR);
 
         for (WebElement reservationLine : reservationsLines) {
-            Instant date = DateTimeUtils.parseUiDateTime(reservationLine.findElement(COLUMN_BOOKING_DATE_SEARCH).getText());
-            String email = reservationLine.findElement(COLUMN_EMAIL_SEARCH).getText();
+            Instant date = DateTimeUtils.parseUiDateTime(reservationLine.findElement(COLUMN_BOOKING_DATE_SEARCH).getText());            String email = reservationLine.findElement(COLUMN_EMAIL_SEARCH).getText();
             String id = reservationLine.findElement(COLUMN_BOOKING_TOKEN_SEARCH).getText();
             reservations.add(new CukesBookingData(date, email, id));
         }
