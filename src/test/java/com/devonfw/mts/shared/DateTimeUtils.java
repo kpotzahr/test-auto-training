@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DateTimeUtils {
-    public static String DATE_TIME_FORMAT_UI = "M/dd/yyyy, h:mm a";
+    public static String DATE_TIME_FORMAT_UI = "M/d/yyyy, H:m a";
 
     public static Instant parseUiDateTime(String dateFromTable) {
         DateTimeFormatter readingFormat = DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
