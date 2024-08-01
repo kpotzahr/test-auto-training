@@ -5,8 +5,9 @@ import java.time.Duration;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
+
+import com.devonfw.mts.shared.WebDriverProvider;
 
 @Component
 public class BrowserAccess {
@@ -24,7 +25,7 @@ public class BrowserAccess {
         if (null != webDriver) {
             return;
         }
-        webDriver = new ChromeDriver();
+        webDriver = WebDriverProvider.provideNewWebDriver();
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

@@ -1,15 +1,16 @@
 package com.devonfw.mts.selenium.pages;
 
-import com.devonfw.mts.shared.CustomBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.devonfw.mts.shared.CustomBy;
+import com.devonfw.mts.shared.WebDriverProvider;
 
 /** Please fill this class with meaningful Page Object content. */
 public final class BookTablePage {
 	// TODO : eventually move WebDriver to parent class 
-	private static WebDriver sDriver = new ChromeDriver();
+	private static final WebDriver sDriver = WebDriverProvider.provideNewWebDriver();
 
 	public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
 	

@@ -5,13 +5,14 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.devonfw.mts.shared.WebDriverProvider;
 
 public class LoginPage {
 	
 	/** The WebDrivers */
-	private static WebDriver sDriver = new ChromeDriver();	
+	private static final WebDriver sDriver = WebDriverProvider.provideNewWebDriver();
 	private static WebDriverWait sDriverWait = new WebDriverWait(sDriver, Duration.ofSeconds(5));
 
 	/** Private page related static constants */
