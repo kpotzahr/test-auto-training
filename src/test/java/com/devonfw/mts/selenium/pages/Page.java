@@ -4,8 +4,9 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.devonfw.mts.shared.WebDriverProvider;
 
 /** Example solution for exercise 3 - Book Table Page and Common Page class */
 public class Page {
@@ -15,7 +16,7 @@ public class Page {
 	public static final String BOOKTABLE = "BOOKTABLE";
 	
 	/** The WebDrivers */
-	static WebDriver sDriver = new ChromeDriver();	
+	 static final WebDriver sDriver = WebDriverProvider.provideNewWebDriver();
 	static WebDriverWait sDriverWait = new WebDriverWait(sDriver, Duration.ofSeconds(5));
 	
 	/** Shared / reused elements */
