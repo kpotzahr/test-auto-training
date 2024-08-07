@@ -5,98 +5,118 @@ import org.openqa.selenium.WebElement;
 
 import com.devonfw.mts.shared.CustomBy;
 
-/** Example solution for exercise 3 and 4 - Book Table Page and Common Page class */
+/**
+ * Example solution for exercise 3 and 4 - Book Table Page and Common Page class
+ */
 public final class BookTablePage extends Page {
-	public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
-	
-	private static final By submitBookingDateButton = By.xpath("/html/body/div[3]/div[2]/div/owl-dialog-container/owl-date-time-container/div[2]/div/button[2]");
+    public static final String BOOK_TABLE = "http://localhost:8081/bookTable";
+
+    private static final By submitBookingDateButton = By
+            .xpath("/html/body/div[3]/div[2]/div/owl-dialog-container/owl-date-time-container/div[2]/div/button[2]");
     private static final By dateInput = CustomBy.testId("booking-date-input");
-	private static final By nameInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[2]/mat-form-field/div/div[1]/div/input");
-	private static final By guestInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[4]/mat-form-field/div/div[1]/div/input");
-	private static final By acceptTerms = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[5]/mat-checkbox/label/div");
-	private static final By emailInput = By.xpath("/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[3]/mat-form-field/div/div[1]/div/input");
-	private static final By bookTableButton = By.name("bookTableSubmit");
-	private static final By bookTableConfirm = By.name("bookTableConfirm");
+    private static final By nameInput = By.xpath(
+            "/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[2]/mat-form-field/div/div[1]/div/input");
+    private static final By guestInput = By.xpath(
+            "/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[4]/mat-form-field/div/div[1]/div/input");
+    private static final By acceptTerms = By.xpath(
+            "/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[5]/mat-checkbox/label/div");
+    private static final By emailInput = By.xpath(
+            "/html/body/public-main/div/div/div/mat-sidenav-container/mat-sidenav-content/public-book-table/mat-card/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/form/div[2]/div[3]/mat-form-field/div/div[1]/div/input");
+    private static final By bookTableButton = By.name("bookTableSubmit");
+    private static final By bookTableConfirm = By.name("bookTableConfirm");
 
+    private static WebElement getSubmitBookingDateButton() {
+        return sDriver.findElement(submitBookingDateButton);
+    }
 
-	private static WebElement getSubmitBookingDateButton() {
-		return sDriver.findElement(submitBookingDateButton);
-	}
-	
-	private static WebElement getDateField() {
-		return sDriver.findElement(dateInput);
-	}
+    private static WebElement getDateField() {
+        return sDriver.findElement(dateInput);
+    }
 
-	private static WebElement getNameInput() {
-		return sDriver.findElement(nameInput);
-	}
+    private static WebElement getNameInput() {
+        return sDriver.findElement(nameInput);
+    }
 
-	private static WebElement getEMailInput() {
-		return sDriver.findElement(emailInput);
-	}
+    private static WebElement getEMailInput() {
+        return sDriver.findElement(emailInput);
+    }
 
-	private static WebElement getNoOfGuestInput() {
-		return sDriver.findElement(guestInput);
-	}
+    private static WebElement getNoOfGuestInput() {
+        return sDriver.findElement(guestInput);
+    }
 
-	private static WebElement getAcceptTermsCheckbox() {
-		return sDriver.findElement(acceptTerms);
-	}
+    private static WebElement getAcceptTermsCheckbox() {
+        return sDriver.findElement(acceptTerms);
+    }
 
-	private static WebElement getBookTableButton() {
-		return sDriverWait.until(driver -> driver.findElement(bookTableButton));
-	}
+    private static WebElement getBookTableButton() {
+        return sDriverWait.until(driver -> driver.findElement(bookTableButton));
+    }
 
-	private static WebElement getBookTableConfirm() {
-		return sDriverWait.until(driver -> driver.findElement(bookTableConfirm));
-	}
+    private static WebElement getBookTableConfirm() {
+        return sDriverWait.until(driver -> driver.findElement(bookTableConfirm));
+    }
 
-	private static void clickBookingDate() {
-		getDateField().click();
-	}
+    private static void clickBookingDate() {
+        getDateField().click();
+    }
 
-	private static void clickSubmitBookingDate() {
-		getSubmitBookingDateButton().click();
-	}
+    private static void setBookingDate(String dateTime) {
+        sDriver.findElement(By.id("mat-input-1")).sendKeys(dateTime);
+    }
 
-	private static void setName(String name) {
-		getNameInput().sendKeys(name);
-	}
+    private static void clickSubmitBookingDate() {
+        getSubmitBookingDateButton().click();
+    }
 
-	private static void setEMail(String mail) {
-		getEMailInput().sendKeys(mail);
-	}
+    private static void setName(String name) {
+        getNameInput().sendKeys(name);
+    }
 
-	private static void setNoOfGuests(String noOfGuests) {
-		getNoOfGuestInput().sendKeys(noOfGuests);
-	}
+    private static void setEMail(String mail) {
+        getEMailInput().sendKeys(mail);
+    }
 
-	private static void setAccptTerms(boolean accept) {
-		getAcceptTermsCheckbox().click();
-	}
+    private static void setNoOfGuests(String noOfGuests) {
+        getNoOfGuestInput().sendKeys(noOfGuests);
+    }
 
-	private static void submitBookTable() {
-		getBookTableButton().click();
-	}
+    private static void setAccptTerms(boolean accept) {
+        getAcceptTermsCheckbox().click();
+    }
 
-	private static void confirmBookTable() {
-		getBookTableConfirm().click();
-	}
+    private static void submitBookTable() {
+        getBookTableButton().click();
+    }
 
-	public static void navigateTo() {
-		sDriver.get(HOME);
-		sDriver.get(BOOK_TABLE);
-	}
+    private static void confirmBookTable() {
+        getBookTableConfirm().click();
+    }
 
-	public static void bookTable(String name, String eMail, String noOfGuests, boolean acceptTerms) {
-		clickBookingDate();
-		pause(1000);
-		clickSubmitBookingDate();
-		setName(name);
-		setEMail(eMail);
-		setNoOfGuests(noOfGuests);
-		setAccptTerms(acceptTerms);
-		submitBookTable();
-		confirmBookTable();
-	}
+    public static void navigateTo() {
+        sDriver.get(HOME);
+        sDriver.get(BOOK_TABLE);
+    }
+
+    public static void bookTableBadExample(String name, String eMail, String noOfGuests, boolean acceptTerms) {
+        clickBookingDate();
+        pause(1000);
+        clickSubmitBookingDate();
+        setName(name);
+        setEMail(eMail);
+        setNoOfGuests(noOfGuests);
+        setAccptTerms(acceptTerms);
+        submitBookTable();
+        confirmBookTable();
+    }
+
+    public static void bookTable(String name, String eMail, String noOfGuests, String bookingDateTime, boolean acceptTerms) {
+        setBookingDate(bookingDateTime);
+        setName(name);
+        setEMail(eMail);
+        setNoOfGuests(noOfGuests);
+        setAccptTerms(acceptTerms);
+        submitBookTable();
+        confirmBookTable();
+    }
 }

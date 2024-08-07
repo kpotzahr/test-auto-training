@@ -8,10 +8,10 @@ import com.devonfw.mts.selenium.pages.MenuPage;
 
 /** Example solution for exercise 5 - Filtering by slider */
 final class MenuTest {
-	@Test
-	void testFilterMenuByPrice() throws Throwable {
-		MenuPage.navigateTo();
-		MenuPage.setPriceFilter(10);
-		assertTrue(MenuPage.checkAllPricesAreBelowOrEqual(10));
-	}
+    @Test
+    void testFilterMenuByPrice() throws Throwable {
+        MenuPage.navigateTo();
+        MenuPage.setPriceFilter(10);
+        assertTrue(MenuPage.checkAllPricesAreBelowOrEqual(10));
+    }
 }
