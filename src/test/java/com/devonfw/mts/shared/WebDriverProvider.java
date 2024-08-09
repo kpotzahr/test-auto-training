@@ -8,6 +8,7 @@ public class WebDriverProvider {
     public static WebDriver provideNewWebDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-search-engine-choice-screen");
+        options.addArguments("--lang=en");
         return new ChromeDriver(options);
     }
 }
