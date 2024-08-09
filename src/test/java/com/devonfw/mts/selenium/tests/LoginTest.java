@@ -8,11 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.devonfw.mts.selenium.pages.LoginPage;
+import com.devonfw.mts.shared.WebDriverProvider;
 
 public final class LoginTest {
 	
@@ -32,9 +31,7 @@ public final class LoginTest {
 	 */
 	@Test
 	public void testSuccessfulLoginWithUserWaiterBadExample() {
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--disable-search-engine-choice-screen");
-		WebDriver driver = new ChromeDriver(options);
+	    WebDriver driver = WebDriverProvider.provideNewWebDriver();
 		driver.get("http://localhost:8081/");
 		
 		driver.findElement(By.name("login")).click();
