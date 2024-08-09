@@ -2,6 +2,9 @@ package com.devonfw.mts.selenium.tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 
 import com.devonfw.mts.selenium.pages.BookTablePage;
@@ -15,7 +18,17 @@ final class BookTableTest {
     @Test
     void testBookTable() {
         BookTablePage.navigateTo();
-        BookTablePage.bookTable("Tester One", "testerOne@test.com", "2", "8/8/2024, 8:00 PM", true);
+        BookTablePage.bookTable("Tester One", "testerOne@test.com", "2", getBookingDate(), true);
         assertEquals(SUCCESSFUL_BOOKING, BookTablePage.getPopupMessage());
+    }
+
+    /**
+     * Format of DateTime String : "8/8/2024, 8:00 PM"
+     * @return today + 1 day
+     */
+    private static String getBookingDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy, h:mm");
+        String formattedDateTime = LocalDateTime.now().plusDays(1).format(dtf);
+        return formattedDateTime + " PM";
     }
 }
