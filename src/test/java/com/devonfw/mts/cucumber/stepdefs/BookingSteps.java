@@ -171,6 +171,7 @@ public class BookingSteps {
     @Then("I see all the entered details in the confirmation dialog")
     public void iSeeAllTheEnteredDetailsInTheConfirmationDialog() {
         CukesBookingData bookingData = scenarioVariables.getBookingData();
+        confirmationPage.waitUntilActive();
         assertThat(confirmationPage.getName()).isEqualTo(bookingData.getName());
         assertThat(confirmationPage.getEmail()).isEqualTo(bookingData.getEmail());
         assertThat(confirmationPage.getNumberOfGuests()).isEqualTo(bookingData.getAssistants());

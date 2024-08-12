@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DateTimeUtils {
-    public static String DATE_TIME_FORMAT_UI = "M/d/yyyy, H:m a";
+    public static final String DATE_TIME_FORMAT_UI = "M/d/yyyy, H:m a";
 
     public static Instant parseUiDateTime(String dateFromTable) {
         DateTimeFormatter readingFormat = DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
@@ -15,4 +15,12 @@ public class DateTimeUtils {
 
         return readingFormat.parse(dateFromTable, Instant::from);
     }
+
+    public static String toUiDateTime(Instant dateTime) {
+        return DateTimeFormatter.ofPattern("MM/dd/yyyy, hh:mm a")
+                .withLocale(Locale.getDefault())
+                .withZone(ZoneId.systemDefault()).format(dateTime);
+
+    }
+
 }

@@ -1,10 +1,6 @@
 package com.devonfw.mts.cucumber.pages;
 
-
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +38,7 @@ public class BookingPage {
     }
 
     public void enterTimeAndDate(Instant dateTime) {
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(dateTime, ZoneId.systemDefault());
-        enterTimeAndDate(DateTimeFormatter.ofPattern(DateTimeUtils.DATE_TIME_FORMAT_UI)
-                .format(localDateTime));
+        enterTimeAndDate(DateTimeUtils.toUiDateTime(dateTime));
     }
 
     public void enterEmail(String email) {
